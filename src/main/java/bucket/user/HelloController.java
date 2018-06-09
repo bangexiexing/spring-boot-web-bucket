@@ -8,19 +8,19 @@ import bucket.response.AppResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class HelloController {
 
     @Autowired
     private MyEventPublisher myEventPublisher;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping("/")
     public AppResponse index(){
@@ -33,6 +33,13 @@ public class HelloController {
         user.setName(UUID.randomUUID().toString());
         user.setUserId(RandomUtils.nextInt(0,999));
         myEventPublisher.publishUserLoginEvent(user);
+        return AppResponse.success();
+    }
+
+    @RequestMapping("/redis")
+    public AppResponse redis(){
+        redisTemplate.opsForValue().set(
+                RandomStringUtils.randomAlphabetic(5),RandomUtils.nextInt(0,999));
         return AppResponse.success();
     }
 

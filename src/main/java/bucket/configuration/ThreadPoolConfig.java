@@ -26,8 +26,10 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     @Override
     public Executor getAsyncExecutor() {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-                1,1,0L,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),
-                new ThreadFactoryBuilder().setNameFormat("my-async-pool-%d").build(),new ThreadPoolExecutor.CallerRunsPolicy());
+                1,1,0L,TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(),
+                new ThreadFactoryBuilder().setNameFormat("my-async-pool-%d").build(),
+                new ThreadPoolExecutor.CallerRunsPolicy());
         return threadPoolExecutor;
     }
 
