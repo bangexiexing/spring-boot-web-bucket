@@ -13,6 +13,8 @@ dependencies {
     compile group: 'org.springframework.statemachine', name: 'spring-statemachine-core', version: '2.0.1.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-data-redis:2.0.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-security:2.0.2.RELEASE")
+    compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.0.RELEASE")
     compile group: 'com.google.guava', name: 'guava', version: '25.0-jre'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.5.0'

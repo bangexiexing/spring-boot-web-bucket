@@ -4,11 +4,16 @@ package bucket.user;
 import bucket.component.SpringApplicationContextHolder;
 import bucket.component.event.MyEventPublisher;
 import bucket.component.webargument.CurrentUserId;
+import bucket.exception.AppErrorCode;
 import bucket.response.AppResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +37,10 @@ public class HelloController {
         User user = new User();
         user.setName(UUID.randomUUID().toString());
         user.setUserId(RandomUtils.nextInt(0,999));
-        myEventPublisher.publishUserLoginEvent(user);
+        //myEventPublisher.publishUserLoginEvent(user);
+        //添加用户认证性息
+        Authentication authentication = new UsernamePasswordAuthenticationToken("user", "xxxx",Collections.singletonList(new SimpleGrantedAuthority("admin")));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return AppResponse.success();
     }
 
