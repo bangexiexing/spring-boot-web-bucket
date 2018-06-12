@@ -1,6 +1,7 @@
 package bucket;
 
 import bucket.configuration.WebSecurityConfig;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -10,12 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Arrays;
 
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
+@EnableTransactionManagement
+@MapperScan("bucket.user")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);

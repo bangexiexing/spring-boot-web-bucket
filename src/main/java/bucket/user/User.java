@@ -2,6 +2,8 @@ package bucket.user;
 
 import lombok.Data;
 
+import javax.persistence.Table;
+
 @Data
 public class User {
     private Integer userId;

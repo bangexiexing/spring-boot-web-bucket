@@ -4,10 +4,12 @@ import bucket.component.event.UserLoginEvent;
 import bucket.component.statemachine.UserStateMachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,9 @@ public class UserService {
 
     private Map<Integer,StateMachine> userStateMap = new HashMap<>();
 
+    @Autowired
+    private UserMapper userMapper;
+
     @EventListener
     @Async
     public void userLogin(UserLoginEvent userLoginEvent) throws Exception {
@@ -38,5 +43,10 @@ public class UserService {
         stateMachine.sendEvent(UserEvent.ON_LINE);
         userStateMap.put(userLoginEvent.getUser().getUserId(),stateMachine);
         logger.info("receive login event:{}",userLoginEvent.getUser());
+    }
+
+    @Transactional
+    public void addUser(String name,String password){
+        userMapper.insert(name,password);
     }
 }
