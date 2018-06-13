@@ -19,7 +19,8 @@ import java.util.Arrays;
 @EnableAsync
 @EnableScheduling
 @EnableTransactionManagement
-@MapperScan("bucket.user")
+//@MapperScan("bucket.user")
+@tk.mybatis.spring.annotation.MapperScan("bucket.user")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);

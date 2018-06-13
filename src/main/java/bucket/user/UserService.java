@@ -47,6 +47,6 @@ public class UserService {
 
     @Transactional
     public void addUser(String name,String password){
-        userMapper.insert(name,password);
+        userMapper.insertByName(name,password);
     }
 }

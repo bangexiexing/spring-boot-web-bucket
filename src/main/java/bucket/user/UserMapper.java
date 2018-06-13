@@ -1,9 +1,9 @@
 package bucket.user;
 
-import org.apache.ibatis.annotations.Mapper;
+import tk.mybatis.mapper.common.Mapper;
 
-@Mapper
-public interface UserMapper {
-    User selectOne(int userId);
-    int insert(String name,String password);
+//@org.apache.ibatis.annotations.Mapper
+public interface UserMapper extends Mapper<User> {
+    User selectById(int userId);
+    int insertByName(String name,String password);
 }
