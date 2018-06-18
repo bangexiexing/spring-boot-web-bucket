@@ -3,11 +3,13 @@ package bucket.user;
 
 import bucket.component.SpringApplicationContextHolder;
 import bucket.component.event.MyEventPublisher;
+import bucket.component.scheduledtask.ScheduleService;
 import bucket.component.webargument.CurrentUserId;
 import bucket.exception.AppErrorCode;
 import bucket.response.AppResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +28,8 @@ public class HelloController {
     private MyEventPublisher myEventPublisher;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @RequestMapping("/")
     public AppResponse index(){
@@ -52,9 +56,10 @@ public class HelloController {
     }
 
     @RequestMapping("/time")
-    public AppResponse time(){
+    public AppResponse time() throws SchedulerException {
         Map map = new HashMap<>();
         map.put("time",new Date());
+        scheduleService.changeJobCorn();
         return AppResponse.success(map);
     }
 

@@ -1,4 +1,4 @@
-package bucket.component.task;
+package bucket.component.scheduledtask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,6 @@ public class MyTask {
     @Scheduled(cron="*/5 * * * * *")
     @Async
     public void time(){
-        logger.info("my task do something at "+System.currentTimeMillis());
+        logger.info("my scheduledtask do something at "+System.currentTimeMillis());
     }
 }
