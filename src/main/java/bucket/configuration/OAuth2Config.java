@@ -27,7 +27,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * @Description:
  * @Date: Created in 14:16 2018/6/10
  */
-@Configuration
+//@Configuration
 public class OAuth2Config {
 
     private static final String DEMO_RESOURCE_ID = "order";

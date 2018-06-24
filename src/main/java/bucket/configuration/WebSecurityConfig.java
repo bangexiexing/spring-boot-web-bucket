@@ -23,7 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/","/login","/favicon.ico","/oauth/**").permitAll()
+                .csrf().disable()//for upload file
+                .authorizeRequests().antMatchers("/","/login","/favicon.ico","/oauth/**","/upload","/upload/batch","/static/**").permitAll()
                 .anyRequest().authenticated();
 //                .and()
 //                .formLogin().loginPage("/login").permitAll()
