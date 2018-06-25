@@ -46,7 +46,6 @@ public class GlobalExceptionHandler {
     }
 
     private String getParamString(HttpServletRequest request){
-
         try {
             StringBuilder result = new StringBuilder();
             if(!request.getInputStream().isFinished()){
@@ -63,7 +62,7 @@ public class GlobalExceptionHandler {
             }
             return result.toString();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("get request param error",e);
         }
         return StringUtils.EMPTY;
     }

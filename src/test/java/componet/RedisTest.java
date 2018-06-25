@@ -2,7 +2,9 @@ package componet;
 
 import bucket.Application;
 import bucket.component.redis.RedisUtil;
-import bucket.configuration.RedisConfig;
+import bucket.util.SecurityHelper;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +14,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 
-
-import static junit.framework.TestCase.assertEquals;
 
 /**
  * @Author: qyl
@@ -30,15 +30,20 @@ public class RedisTest {
     private RedisUtil redisUtil;
 
     @Test
-    public void testResource() throws IOException {
-
+    public void testSecurity() throws IOException {
+        String str = RandomStringUtils.randomAlphabetic(16);
+        String xorStr = SecurityHelper.XOR(str);
+        Assert.assertEquals(str,SecurityHelper.XOR(xorStr));
+//        System.out.println(str);
+//        System.out.println(xorStr);
+//        System.out.println();
     }
 
     @Test
     public void getHello() throws Exception {
         String value = System.currentTimeMillis() + "";
         redisTemplate.opsForValue().set("test111",value);
-        assertEquals(redisTemplate.opsForValue().get("test111"),value);
+        Assert.assertEquals(redisTemplate.opsForValue().get("test111"),value);
     }
 
     @Test
