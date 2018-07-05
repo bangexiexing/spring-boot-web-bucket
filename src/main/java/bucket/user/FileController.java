@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -29,5 +33,14 @@ public class FileController {
         Map<String,MultipartFile> fileMap = request.getFileMap();
         fileMap.forEach((name,file) -> log.info("receive file name {},{}",name,file));
         return "success";
+    }
+
+    @RequestMapping("download")
+    public String download(HttpServletResponse res) throws IOException {
+        res.setHeader("content-type", "application/octet-stream");
+        res.setContentType("application/octet-stream");
+        res.setHeader("Content-Disposition", "attachment;filename=" + "test");
+        Files.copy(Paths.get("some path"),res.getOutputStream());
+        return null;
     }
 }

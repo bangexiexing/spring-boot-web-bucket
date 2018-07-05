@@ -3,9 +3,13 @@ package bucket.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class BeanHelper {
@@ -35,4 +39,24 @@ public abstract class BeanHelper {
         return newList;
     }
 
+    public static <T> T mapToBean(Map map, Class<T> cls){
+        if (map == null)
+            return null;
+
+        T newBean = null;
+        BeanInfo beanInfo = null;
+        try {
+            newBean = cls.newInstance();
+            beanInfo = Introspector.getBeanInfo(cls);
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor p : propertyDescriptors) {
+                Method setter = p.getWriteMethod();
+                setter.invoke(newBean,map.get(p.getName()));
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException("map to bean error :" + e.getMessage());
+        }
+        return newBean;
+    }
 }

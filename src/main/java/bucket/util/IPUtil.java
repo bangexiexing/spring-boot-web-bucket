@@ -3,6 +3,8 @@ package bucket.util;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 
 public abstract class IPUtil {
@@ -43,5 +45,14 @@ public abstract class IPUtil {
             XFor = request.getRemoteAddr();
         }
         return XFor;
+    }
+
+    public static String getLocalIp(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -7,6 +7,7 @@ import bucket.component.scheduledtask.ScheduleService;
 import bucket.component.webargument.CurrentUserId;
 import bucket.exception.AppErrorCode;
 import bucket.response.AppResponse;
+import bucket.util.SecurityHelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.quartz.SchedulerException;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 public class HelloController {
@@ -34,6 +36,12 @@ public class HelloController {
     @RequestMapping("/")
     public AppResponse index(){
         return AppResponse.success("hello,i am spring web bucket");
+    }
+
+    @RequestMapping("/test")
+    public AppResponse hashInfo(){
+        String str = ThreadLocalRandom.current().nextInt()+"";
+        return AppResponse.success(SecurityHelper.XOR(str));
     }
 
     @RequestMapping("/login")
