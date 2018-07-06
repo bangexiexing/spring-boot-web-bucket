@@ -1,5 +1,7 @@
 package bucket.user;
 
+import bucket.version.History;
+import bucket.version.Version;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,13 +23,14 @@ import java.util.Map;
 @Slf4j
 public class FileController {
 
-    @RequestMapping("upload")
+    @RequestMapping(value = "upload", headers = "api-version=" + Version.APP_12)
     public String uploadFile(MultipartFile myfile){
         log.info("receive file :{}",myfile);
         //do save
         return "success";
     }
 
+    @History(until = Version.APP_11)
     @RequestMapping("upload/batch")
     public String batchUploadFile(MultipartHttpServletRequest request){
         Map<String,MultipartFile> fileMap = request.getFileMap();
