@@ -5,6 +5,7 @@ gradle
 out
 gradlew
 gradlew.bat
+build
 
 # Compiled class file
 *.class

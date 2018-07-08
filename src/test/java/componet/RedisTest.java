@@ -2,6 +2,8 @@ package componet;
 
 import bucket.Application;
 import bucket.component.redis.RedisUtil;
+import bucket.user.User;
+import bucket.util.LocalBackupUtil;
 import bucket.util.SecurityHelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -49,5 +51,10 @@ public class RedisTest {
     @Test
     public void testScan(){
         redisUtil.runScript("test","some_key");
+    }
+
+    @Test
+    public void testBackup() {
+        System.out.println(LocalBackupUtil.load(User.class));
     }
 }
