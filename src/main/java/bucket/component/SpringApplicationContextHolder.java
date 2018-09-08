@@ -21,10 +21,10 @@ public class SpringApplicationContextHolder implements ApplicationContextAware {
     }
 
     public static <T> T getBean(Class<T> cls) {
-        return context==null?null:context.getBean(cls);
+        return context == null ? null : context.getBean(cls);
     }
 
     public static Object getBean(String name) {
-        return context==null?null:context.getBean(name);
+        return context == null ? null : context.getBean(name);
     }
 }

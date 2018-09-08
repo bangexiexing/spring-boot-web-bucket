@@ -5,6 +5,7 @@ import com.google.common.io.CharStreams;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +36,14 @@ public class GlobalExceptionHandler {
             return AppResponse.fail((AppException) ex);
         }
         return AppResponse.fail(AppErrorCode.SYSTEM_ERROR);
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public AppResponse handleParamException(HttpServletRequest request, BindException ex){
+        String errorLog = String.format(LOG_TEMPLATE,request.getRequestURI(),getParamString(request),ex.getMessage());
+        logger.error(errorLog, ex);
+        return AppResponse.fail(ex.getAllErrors().get(0).getDefaultMessage());
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

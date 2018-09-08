@@ -32,7 +32,7 @@ public class SecurityHelper {
     private static SecurityHelper instance;
 
     @Value("${salt:112313}")
-    private static String SALT;
+    private String SALT;
 
     private static HmacUtils hmacUtils;
 

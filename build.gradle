@@ -13,7 +13,6 @@ dependencies {
     compile group: 'org.springframework.statemachine', name: 'spring-statemachine-core', version: '2.0.1.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-data-redis:2.0.2.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-security:2.0.2.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-mail:2.0.2.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-aop:2.0.2.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-quartz:2.0.2.RELEASE")
@@ -22,7 +21,6 @@ dependencies {
     compile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
     compile group: 'tk.mybatis', name: 'mapper-spring-boot-starter', version: '2.0.2'
     compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.5'
-    compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.0.RELEASE")
     compile 'com.alibaba:druid-spring-boot-starter:1.1.10'
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
     compile group: 'com.google.guava', name: 'guava', version: '25.0-jre'

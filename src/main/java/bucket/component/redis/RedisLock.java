@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.Instant;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -63,7 +64,7 @@ public class RedisLock implements Lock {
         @Override
         public boolean retry() {
             long start = System.currentTimeMillis();
-            final Random r = new Random();
+            final Random r = ThreadLocalRandom.current();
             int time_out = EXPIRED_SECOND * 1000;
             Long value = (Long) redisTemplate.opsForValue().get(key);
             //maybe unnecessary

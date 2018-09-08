@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @Description:
  * @Date: Created in 19:57 2018/6/10
  */
-@Component
+//@Component
 public class MyTask {
 
     private static final Logger logger = LoggerFactory.getLogger(MyTask.class);

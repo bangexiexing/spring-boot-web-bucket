@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description:
  * @Date: Created in 21:29 2018/6/17
  */
-@Configuration
+//@Configuration
 public class QuartzConfig {
     @Bean
     public JobDetail sampleJobDetail() {

@@ -5,6 +5,7 @@ import bucket.component.statemachine.UserStateMachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.statemachine.StateMachine;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @Author: qyl
@@ -39,14 +41,29 @@ public class UserService {
         }
         StateMachine<UserStates,UserEvent> stateMachine = UserStateMachine.buildMachine();
         stateMachine.start();
-        logger.info("stateMachine state :{}",stateMachine.getState());
+        logger.info("stateMachine state :{}", stateMachine.getState());
         stateMachine.sendEvent(UserEvent.ON_LINE);
-        userStateMap.put(userLoginEvent.getUser().getUserId(),stateMachine);
+        userStateMap.put(userLoginEvent.getUser().getUserId(), stateMachine);
         logger.info("receive login event:{}",userLoginEvent.getUser());
     }
 
     @Transactional
     public void addUser(String name,String password){
-        userMapper.insertByName(name,password);
+        userMapper.insertByName(name, password);
+    }
+
+    @Cacheable(value = "user", key = "#name")
+    public User findUserByName(String name) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        User user = User.builder()
+                .name(name)
+                .password("11111111111")
+                .userId(ThreadLocalRandom.current().nextInt())
+                .build();
+        return user;
     }
 }

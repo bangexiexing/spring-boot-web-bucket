@@ -22,11 +22,13 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPoolConfig implements AsyncConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadPoolConfig.class);
+    private static final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
 
     @Override
     public Executor getAsyncExecutor() {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-                1,1,0L,TimeUnit.MILLISECONDS,
+                CORE_SIZE,
+                CORE_SIZE,0L,TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),
                 new ThreadFactoryBuilder().setNameFormat("my-async-pool-%d").build(),
                 new ThreadPoolExecutor.CallerRunsPolicy());

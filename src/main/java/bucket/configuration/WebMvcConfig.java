@@ -1,5 +1,7 @@
 package bucket.configuration;
 
+import bucket.component.cache.MyCache;
+import bucket.component.cache.MyCacheManager;
 import bucket.component.interceptor.SignatureInterceptor;
 import bucket.component.json.DateSerializer;
 import bucket.component.webargument.UserIdResolver;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -69,5 +73,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    }
+
+    @Bean
+    CacheManager cacheManager() {
+        MyCacheManager cacheManager = new MyCacheManager();
+        MyCache cache = new MyCache();
+        cache.setName("user");
+        cacheManager.setCaches(Collections.singleton(cache));
+        return cacheManager;
     }
 }
